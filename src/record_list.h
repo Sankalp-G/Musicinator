@@ -7,6 +7,7 @@
 #include <sstream>
 #include <iomanip>
 #include "record.h"
+#include "constants.h"
 
 namespace fs = std::filesystem;
 
@@ -37,8 +38,10 @@ class RecordList {
   private:
   string list_header() {
     stringstream header;
-    header << "#" << setw(25) << "Title" << setw(25) << "Artist" << endl;
-    header << setfill('-') << setw(51) << "-" << endl;
+    header << "#" << setw(COLUMN_WIDTH) << "Title" << setw(COLUMN_WIDTH) << "Artist" << endl;
+
+    int separator_width = COLUMN_WIDTH * 2 + 1;
+    header << setfill('-') << setw(separator_width) << "-" << endl;
     return header.str();
   }
 };

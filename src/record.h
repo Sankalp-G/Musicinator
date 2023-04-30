@@ -5,6 +5,8 @@
 #include <iomanip>
 #include <sstream>
 #include <fstream>
+
+#include "constants.h"
 #include "../libraries/json.hpp"
 
 using namespace std;
@@ -17,7 +19,7 @@ class Record {
 
   string to_string() {
     stringstream output;
-    output << setw(25) << name << setw(25) << artist;
+    output << setw(COLUMN_WIDTH) << name << setw(COLUMN_WIDTH) << artist;
     return output.str();
   }
 
