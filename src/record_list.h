@@ -4,6 +4,8 @@
 #include <vector>
 #include <iostream>
 #include <filesystem>
+#include <sstream>
+#include <iomanip>
 #include "record.h"
 
 namespace fs = std::filesystem;
@@ -26,8 +28,18 @@ class RecordList {
   }
 
   void display() {
-    for (auto rec = records.begin(); rec != records.end(); ++rec)
-        cout << rec->to_string() << endl;
+    cout << list_header();
+
+    for (int i = 0; i < records.size(); i++)
+        cout << i + 1 << records.at(i).to_string() << endl;
+  }
+
+  private:
+  string list_header() {
+    stringstream header;
+    header << "#" << setw(25) << "Title" << setw(25) << "Artist" << endl;
+    header << setfill('-') << setw(51) << "-" << endl;
+    return header.str();
   }
 };
 

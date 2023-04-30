@@ -17,7 +17,7 @@ class Record {
 
   string to_string() {
     stringstream output;
-    output << setw(20) << name << setw(20) << artist;
+    output << setw(25) << name << setw(25) << artist;
     return output.str();
   }
 
