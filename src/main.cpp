@@ -1,15 +1,27 @@
 #include <iostream>
-#include "title.h"
-#include "record.h"
 #include <iomanip>
+#include <fstream>
+#include "record.h"
+#include "title.h"
+
+using namespace std;
 
 int main() {
+  cout << TITLE << "\n\n\n";
+
   Record rec = Record();
 
-  rec.name = "BEEP";
-  rec.artist = "BOOP";
+  rec.name = "Overdose";
+  rec.artist = "natori";
 
-  std::cout << TITLE << std::endl;
+  cout << rec.to_string() << endl; 
 
-  cout << "Something cool:" << rec.to_string() << endl; 
+  rec.save_to_disk();
+
+  ifstream file("./saved_records/Believer.json");
+  Record loaded_record;
+  loaded_record.load_from_file(file);
+  cout << loaded_record.to_string() << endl;
+
+  return 0;
 }
