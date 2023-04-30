@@ -18,6 +18,9 @@ class Manager {
       case 1:
         view_records();
         break;
+      case 2:
+        save_new_record();
+        break;
       case 4:
         exit(0);
     }
@@ -45,6 +48,17 @@ class Manager {
 
     cout << "\n" << "Press any key to continue...";
     getchar();
+    main_menu();
+  }
+
+  void save_new_record() {
+    clear_terminal();
+
+    Record rec;
+    rec.get_data_from_user();
+    rec.save_to_disk();
+
+    cout << "\n" << "Press any key to continue...";
     getchar();
     main_menu();
   }
@@ -58,6 +72,7 @@ class Manager {
       cin >> input_num;
 
       if (input_num >= lower && input_num <= higher) {
+        cin.ignore(256, '\n');
         return input_num;
       }
 

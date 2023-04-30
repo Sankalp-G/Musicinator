@@ -17,6 +17,14 @@ class Record {
   string name;
   string artist;
 
+  void get_data_from_user() {
+    cout << "Enter record data:" << endl;
+    cout << "  Name: ";
+    getline(cin, name);
+    cout << "  Artist name: ";
+    getline(cin, artist);
+  }
+
   string to_string() {
     stringstream output;
     output << setw(COLUMN_WIDTH) << name << setw(COLUMN_WIDTH) << artist;
@@ -39,8 +47,9 @@ class Record {
 
   void save_to_disk() {
     ofstream fileptr(file_path());
-
     fileptr << to_json().dump(4);
+
+    cout << "Saved record successfully" << endl;
   }
 
   private:
