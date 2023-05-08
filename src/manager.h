@@ -40,6 +40,12 @@ class Manager {
     4] Exit)" << "\n\n";
   }
 
+  void return_prompt() {
+    cout << "\nPress any key to continue...";
+    getchar();
+    main_menu();
+  }
+
   void view_records() {
     clear_terminal();
 
@@ -48,9 +54,7 @@ class Manager {
     record_list.load_saved_records();
     record_list.display();
 
-    cout << "\nPress any key to continue...";
-    getchar();
-    main_menu();
+    return_prompt();
   }
 
   void save_new_record() {
@@ -60,9 +64,7 @@ class Manager {
     rec.get_data_from_user();
     rec.save_to_disk();
 
-    cout << "\nPress any key to continue...";
-    getchar();
-    main_menu();
+    return_prompt();
   }
 
   void withdraw_records() {
@@ -82,9 +84,7 @@ class Manager {
     selected_record.count -= retrieve_amount;
     selected_record.save_to_disk();
 
-    cout << "\nPress any key to continue...";
-    getchar();
-    main_menu();
+    return_prompt();
   }
 
   private:
