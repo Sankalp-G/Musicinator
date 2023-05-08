@@ -21,6 +21,8 @@ class Manager {
       case 2:
         save_new_record();
         break;
+      case 3:
+        withdraw_records();
       case 4:
         exit(0);
     }
@@ -46,7 +48,7 @@ class Manager {
     record_list.load_saved_records();
     record_list.display();
 
-    cout << "\n" << "Press any key to continue...";
+    cout << "\nPress any key to continue...";
     getchar();
     main_menu();
   }
@@ -58,7 +60,29 @@ class Manager {
     rec.get_data_from_user();
     rec.save_to_disk();
 
-    cout << "\n" << "Press any key to continue...";
+    cout << "\nPress any key to continue...";
+    getchar();
+    main_menu();
+  }
+
+  void withdraw_records() {
+    clear_terminal();
+    RecordList record_list;
+    record_list.load_saved_records();
+    record_list.display();
+
+    cout << "\nWhich record would you like to retrieve (#): ";
+    int selection = query_num_between(1, record_list.records.size());
+
+    Record selected_record = record_list.records.at(selection - 1);
+
+    cout << "\nHow many would you like to retrieve: ";
+    int retrieve_amount = query_num_between(0, selected_record.count);
+
+    selected_record.count -= retrieve_amount;
+    selected_record.save_to_disk();
+
+    cout << "\nPress any key to continue...";
     getchar();
     main_menu();
   }
