@@ -18,6 +18,14 @@ class Record {
   string artist;
   int count;
 
+  Record() {}
+
+  Record(string name, string artist, int count) {
+    this->name = name;
+    this->artist = artist;
+    this->count = count;
+  }
+
   void get_data_from_user() {
     cout << "Enter record data:" << endl;
     cout << "  Name: ";
@@ -26,6 +34,7 @@ class Record {
     getline(cin, artist);
     cout << "  Record count: ";
     cin >> count;
+    cin.ignore(256, '\n');
   }
 
   string to_string() {
