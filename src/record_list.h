@@ -38,9 +38,9 @@ class RecordList {
   private:
   string list_header() {
     stringstream header;
-    header << "#" << setw(COLUMN_WIDTH) << "Title" << setw(COLUMN_WIDTH) << "Artist" << endl;
+    header << "#" << setw(COLUMN_WIDTH) << "Title" << setw(COLUMN_WIDTH) << "Artist" << setw(COLUMN_WIDTH) << "Count" << endl;
 
-    int separator_width = COLUMN_WIDTH * 2 + 1;
+    int separator_width = COLUMN_WIDTH * 3 + 1;
     header << setfill('-') << setw(separator_width) << "-" << endl;
     return header.str();
   }

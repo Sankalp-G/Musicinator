@@ -16,6 +16,7 @@ class Record {
   public:
   string name;
   string artist;
+  int count;
 
   void get_data_from_user() {
     cout << "Enter record data:" << endl;
@@ -23,11 +24,13 @@ class Record {
     getline(cin, name);
     cout << "  Artist name: ";
     getline(cin, artist);
+    cout << "  Record count: ";
+    cin >> count;
   }
 
   string to_string() {
     stringstream output;
-    output << setw(COLUMN_WIDTH) << name << setw(COLUMN_WIDTH) << artist;
+    output << setw(COLUMN_WIDTH) << name << setw(COLUMN_WIDTH) << artist << setw(COLUMN_WIDTH) << count;
     return output.str();
   }
 
@@ -35,6 +38,7 @@ class Record {
     return {
       {"name", name},
       {"artist", artist},
+      {"count", count}
     };
   }
 
@@ -43,6 +47,7 @@ class Record {
 
     name = json_data["name"];
     artist = json_data["artist"];
+    count = json_data["count"];
   }
 
   void save_to_disk() {
