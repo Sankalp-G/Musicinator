@@ -37,12 +37,6 @@ class Record {
     cin.ignore(256, '\n');
   }
 
-  string to_string() {
-    stringstream output;
-    output << setw(COLUMN_WIDTH) << name << setw(COLUMN_WIDTH) << artist << setw(COLUMN_WIDTH) << count;
-    return output.str();
-  }
-
   json to_json() {
     return {
       {"name", name},
