@@ -2,6 +2,7 @@
 #define SEARCH_H
 
 #include <iostream>
+#include <algorithm>
 #include <curl/curl.h>
 #include "../libraries/json.hpp"
 #include "./record_list.h"
@@ -9,10 +10,8 @@
 using namespace std;
 using json = nlohmann::json;
 
-class Search {
+class Search : public RecordList {
   public:
-  RecordList record_list;
-
   string fetch_url(string url) {
     CURL *curl;
     CURLcode res;
@@ -36,7 +35,7 @@ class Search {
   }
 
   json search_results_json(string song_name) {
-    string url = "https://saavn.me/search/songs?query=" + song_name;
+    string url = "https://saavn.me/search/songs?query=" + space2plus(song_name);
     return fetch_json(url);
   }
 
@@ -46,17 +45,40 @@ class Search {
     json song;
     for (int i = 0; i < songs.size(); i++) {
       song = songs.at(i);
-      record_list.records.push_back(
+      records.push_back(
         Record(song["name"], song["primaryArtists"], 0)
       );
     }
   }
 
   void search(string query) {
-    json song_json = search_results_json("Strawberry");
+    json song_json = search_results_json("Imagine Dragons");
 
     generate_records(song_json);
-    record_list.display();
+  }
+
+  protected:
+  // All of these are overrides for the RecordList class
+  // to remove the count column since that's not need for search results
+  int full_row_width() {
+    return COLUMN_WIDTH * 2 + 1;
+  }
+
+  string column_titles() {
+    stringstream titles;
+    titles << "#" << setw(COLUMN_WIDTH) << "Title" << setw(COLUMN_WIDTH) << "Artist" << setw(COLUMN_WIDTH) << endl;
+    return titles.str();
+  }
+
+  string record_row_format(Record rec) {
+    stringstream output;
+    output << rec.name << setw(COLUMN_WIDTH) << rec.artist;
+    return output.str();
+  }
+
+  string space2plus(std::string text) {
+    std::replace(text.begin(), text.end(), ' ', '+');
+    return text;
   }
 
   private:
