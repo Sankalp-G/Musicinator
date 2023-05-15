@@ -13,7 +13,7 @@ class Manager {
   void main_menu() {
     display_main_menu_prompt();
 
-    int choice = query_num_between(1, 4);
+    int choice = query_num_between(1, 5);
 
     switch(choice) {
       case 1:
