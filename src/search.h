@@ -52,7 +52,7 @@ class Search : public RecordList {
   }
 
   void search(string query) {
-    json song_json = search_results_json("Imagine Dragons");
+    json song_json = search_results_json(query);
 
     generate_records(song_json);
   }

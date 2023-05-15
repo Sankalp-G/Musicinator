@@ -4,6 +4,7 @@
 #include <iostream>
 #include "record_list.h"
 #include "title.h"
+#include "search.h"
 
 using namespace std;
 
@@ -17,13 +18,13 @@ class Manager {
     switch(choice) {
       case 1:
         view_records();
-        break;
       case 2:
         save_new_record();
-        break;
       case 3:
         withdraw_records();
       case 4:
+        search_songs();
+      case 5:
         exit(0);
     }
   }
@@ -37,7 +38,8 @@ class Manager {
     1] View Saved records
     2] Add new record
     3] Withdraw a record
-    4] Exit)" << "\n\n";
+    4] Search for new songs
+    5] Exit)" << "\n\n";
   }
 
   void return_prompt() {
@@ -84,6 +86,32 @@ class Manager {
     selected_record.count -= retrieve_amount;
     selected_record.save_to_disk();
 
+    return_prompt();
+  }
+
+  void search_songs() {
+    clear_terminal();
+
+    string query;
+    cout << "Search query: ";
+    getline(cin, query);
+
+    Search search;
+    search.search(query);
+    search.display();
+
+    cout << "\nWhich song would you like to save (#): ";
+    int selection = query_num_between(1, search.records.size());
+    Record selected_record = search.records.at(selection - 1);
+
+    cout << "\nWhat amount of the record should be saved: ";
+    int count;
+    cin >> count;
+
+    selected_record.count = count;
+    selected_record.save_to_disk();
+
+    cin.ignore(256, '\n');
     return_prompt();
   }
 
