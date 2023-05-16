@@ -26,6 +26,7 @@ class RecordList {
       rec.load_from_file(f);
       records.push_back(rec);
     }
+    f.close();
   }
 
   void display() {

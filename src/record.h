@@ -57,6 +57,7 @@ class Record {
     ofstream fileptr(file_path());
     fileptr << to_json().dump(4);
 
+    fileptr.close();
     cout << "Saved record successfully" << endl;
   }
 
